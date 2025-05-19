@@ -46,26 +46,24 @@ const observer = new IntersectionObserver((entries) => {
 });
 
 experienceItems.forEach(item => {
+    // Initial styles
     item.style.opacity = '0';
     item.style.transform = 'translateY(20px)';
     item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
     observer.observe(item);
-
-    // Add click event to show/hide details
-    const details = item.querySelector('.experience-details');
-    if (details) {
-        item.addEventListener('click', () => {
-            // Close all other open items
-            experienceItems.forEach(otherItem => {
-                if (otherItem !== item && otherItem.classList.contains('active')) {
-                    otherItem.classList.remove('active');
-                }
-            });
-            
-            // Toggle current item
-            item.classList.toggle('active');
+    
+    // Click handler
+    item.addEventListener('click', function() {
+        // Close all other items
+        experienceItems.forEach(otherItem => {
+            if (otherItem !== this) {
+                otherItem.classList.remove('active');
+            }
         });
-    }
+        
+        // Toggle current item
+        this.classList.toggle('active');
+    });
 });
 
 // Add animation to skills
@@ -187,4 +185,19 @@ startButton.addEventListener('click', () => {
         console.log('Starting journey...');
         // For example: window.location.href = 'your-link-here';
     }, 1000);
+});
+
+// Mobile Menu Toggle
+const menuToggle = document.querySelector('.menu-toggle');
+const nav = document.querySelector('nav ul');
+
+menuToggle.addEventListener('click', () => {
+    nav.classList.toggle('active');
+});
+
+// Close mobile menu when clicking a link
+document.querySelectorAll('nav ul li a').forEach(link => {
+    link.addEventListener('click', () => {
+        nav.classList.remove('active');
+    });
 }); 
