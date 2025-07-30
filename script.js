@@ -189,7 +189,7 @@ startButton.addEventListener('click', () => {
 
 // Mobile Menu Toggle
 const menuToggle = document.querySelector('.menu-toggle');
-const nav = document.querySelector('nav ul');
+const nav = document.querySelector('nav');
 
 menuToggle.addEventListener('click', () => {
     nav.classList.toggle('active');
@@ -200,4 +200,11 @@ document.querySelectorAll('nav ul li a').forEach(link => {
     link.addEventListener('click', () => {
         nav.classList.remove('active');
     });
+});
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', (e) => {
+    if (!nav.contains(e.target) && !menuToggle.contains(e.target)) {
+        nav.classList.remove('active');
+    }
 }); 
